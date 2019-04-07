@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1554647212 source:c:\users\happy\desktop\ds\data-structures-and-algorithm\trees\sum of leaf nodes\main.cpp
+	<bits/stdc++.h>
+	<algorithm>
+	<vector>
+
