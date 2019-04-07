@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1554495182 source:c:\users\happy\desktop\ds\data-structures-and-algorithm\graphs\shortest path from 1 to n\main.cpp
+	<bits/stdc++.h>
+	<algorithm>
+	<vector>
+

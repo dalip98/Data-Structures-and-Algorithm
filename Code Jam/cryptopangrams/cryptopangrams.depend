@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1554569419 source:c:\users\happy\desktop\code jam\cryptopangrams\main.cpp
+	<bits/stdc++.h>
+	<algorithm>
+	<vector>
+

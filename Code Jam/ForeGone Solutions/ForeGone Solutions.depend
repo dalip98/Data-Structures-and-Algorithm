@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1554532139 source:c:\users\happy\desktop\code jam\foregone solutions\main.cpp
+	<bits/stdc++.h>
+	<algorithm>
+	<vector>
+
