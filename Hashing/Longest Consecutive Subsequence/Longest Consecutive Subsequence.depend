@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1555086783 source:c:\users\happy\desktop\ds\data-structures-and-algorithm\codeforces round 550\longest consecutive subsequence\main.cpp
+	<bits/stdc++.h>
+	<algorithm>
+	<vector>
+
