@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1555604380 source:/home/dalip/Desktop/Competitive/Data-Structures-and-Algorithm/Codeforces Round 553/Ques4/main.cpp
+	<bits/stdc++.h>
+	<vector>
+	<algorithm>
+
