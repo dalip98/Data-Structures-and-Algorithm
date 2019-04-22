@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1555785886 source:/home/dalip/Desktop/Competitive/Data-Structures-and-Algorithm/ForeThought Future Cup/Ques1/main.cpp
+	<bits/stdc++.h>
+	<vector>
+	<algorithm>
+
