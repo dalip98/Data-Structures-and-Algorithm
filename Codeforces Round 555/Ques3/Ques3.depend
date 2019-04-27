@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1556296032 source:/home/dalip/Desktop/Ques3/main.cpp
+	<bits/stdc++.h>
+	<vector>
+	<algorithm>
+
