@@ -16,6 +16,12 @@ int main()
     queue<ll>brr;
     ll l=0,r=n-1;
     queue<char>q;
+    if(n==1)
+    {
+        cout<<1<<endl;
+        cout<<"L"<<endl;
+        return 0;
+    }
     if(arr[l]<arr[r])
     {
 
