@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1558887776 source:/home/dalip/Desktop/Codeforces 562 Div2/Ques2/main.cpp
+	<bits/stdc++.h>
+	<vector>
+	<algorithm>
+
