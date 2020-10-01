@@ -1,0 +1,236 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long //data types used often, but you don't want to type them time by time
+#define ull unsigned long long
+#define ui unsigned int
+#define ld long double
+#define mod 998244353
+//#define inf 100000000000010
+#define us unsigned short
+#define IOS ios_base::sync_with_stdio(0); //to synchronize the input of cin and scanf
+//#define INF LONG_MAX
+#define PI 3.1415926535897932384626
+#define mpp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define rep(x,j,n)for(int x=j;x<n;x++)
+#define repr(x,n,j)for(ll x=n;x>j;x--)
+#define all(x) (x).begin(), (x).end()
+
+typedef vector<pair<ll,ll>> vpi;
+typedef vector<ll> vi;
+typedef vector<vi> vvi;
+typedef pair<ll,ll> pi;
+//typedef long double ld;
+bool isprime(ll n)
+{
+    if(n<=1)return false;
+    if(n<=3)return true;
+    if(n%2==0||n%3==0)return false;
+    for(ll i=5;i*i<=n;i+=6)
+    {
+        if(n%i==0||n%(i+2)==0)return false;
+    }
+    return true;
+}
+
+ll modexp(ll a,ll b,ll m)
+{
+    ll r=1;
+    a=a%m;
+    while(b>0)
+    {
+        if(b&1)r=(r*a)%m;
+        b = b>>1;
+        a=(a*a)%m;
+    }
+    return r%m;
+}
+
+
+
+
+ll builtin_popcount(ll x)
+{
+    ll cnt = 0;
+    for(ll i=60;i>=0;i--)
+    {
+        if((1LL<<i)&x)cnt++;
+    }
+    return cnt;
+}
+
+ll addmod(ll a,ll b)
+{
+    a%=mod;
+    b%=mod;
+    return (a+b)%mod;
+}
+ll mulmod(ll a,ll b)
+{
+    a%=mod;
+    b%=mod;
+    return (a*b)%mod;
+}
+ll submod(ll a,ll b)
+{
+    a%=mod;
+    b%=mod;
+    a-=b;
+    if(a<0)a+=mod;
+    return a%mod;
+}
+struct CustomCompare
+{
+    bool operator()(ll a,ll b)
+    {
+        return a>b;
+    }
+};
+/*
+const int mxn = 5*(1e6) +10;
+vi spf(mxn);
+void sieve()
+{
+    for(ll i =0;i<mxn;i++)spf[i]  = i;
+    for(ll i=2;i<mxn;i+=2)spf[i] = 2;
+    for(ll i = 3;i*i<mxn;i++)
+    {
+        if(spf[i]==i)
+        {
+            for(ll j = i*i;j<mxn;j+=i)
+            {
+                if(spf[j]==j)spf[j] = i;
+            }
+        }
+    }
+}
+*/
+
+const int mxn = 2e5 + 10;
+
+vi g[mxn];
+vi par(mxn) , vis(mxn) , low(mxn) ,tin(mxn);
+vi sz(mxn,1);
+vpi bridge , ans;
+ll timer = 0;
+
+ll s,t,ds, dt;
+
+ll get_par(ll x)
+{
+    if(par[x]!=x)return par[x] = get_par(par[x]);
+    return x;
+}
+
+void combine(ll x,ll y)
+{
+    x = get_par(x) ,y = get_par(y);
+    if(sz[x]<sz[y])swap(x,y);
+    sz[x]+=sz[y];
+    par[y] = x;
+}
+
+void dfs(ll src,ll p)
+{
+    vis[src]=1;
+    tin[src] = low[src] = timer++;
+
+    for(auto x:g[src])
+    {
+        if(x!=p)
+        {
+            if(vis[x])low[src] = min(low[src],tin[x]);
+            else
+            {
+                dfs(x,src);
+                low[src] = min(low[src],low[x]);
+
+                if(low[x]>tin[src])
+                {
+                    if(x==s||x==t||src==s||src==t)bridge.pb({src,x});
+                }
+            }
+        }
+    }
+}
+
+int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(0);cout.tie(0);
+
+ll n,m; cin>>n>>m;
+rep(i,0,m)
+{
+    ll u,v; cin>>u>>v;
+    --u,--v;
+    g[u].pb(v);
+    g[v].pb(u);
+}
+cin>>s>>t>>ds>>dt;
+s--,t--;
+rep(i,0,n)par[i] = i;
+
+dfs(0,-1);
+
+ll curr_s = 0 , curr_t = 0;
+
+for(auto x:bridge)
+{
+    if(x.fi==s||x.se==s)curr_s++;
+    if(x.fi==t||x.se==t)curr_t++;
+}
+
+if(curr_s>ds||curr_t>dt)
+{
+    cout<<"No\n";
+    return 0;
+}
+
+ds-=curr_s , dt-=curr_t;
+
+for(auto x:bridge)
+{
+    ans.pb(x);
+    combine(x.fi,x.se);
+}
+
+rep(i,0,n)
+{
+    if(i==s||i==t)continue;
+
+    for(auto x:g[i])
+    {
+        if(get_par(x)!=get_par(i))
+        {
+            if(x==s)
+            {
+                if(ds<=0)continue;
+                else ds--;
+            }
+            if(x==t)
+            {
+                if(dt<=0)continue;
+                else dt--;
+            }
+            ans.pb({x,i});
+            combine(x,i);
+        }
+    }
+}
+if(ans.size()==n-1)
+{
+    cout<<"Yes\n";
+    for(auto x:ans)cout<<x.fi+1<<" "<<x.se+1<<"\n";
+}
+else cout<<"No\n";
+return 0;
+}
+/*
+1
+11 3
+0 1 2 2 3 3 3 4 4 4 4
+
+*/
