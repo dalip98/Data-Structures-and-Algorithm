@@ -101,6 +101,38 @@ void sieve()
     }
 }
 */
+const int mxn = 1e5 +10,lg = 20;
+ll table_mx[mxn][lg],table_mn[mxn][lg];
+
+void create()
+{
+    
+    for(ll i=0;i<n;i++)table_mx[i][0] = table_mn[i][0] =  arr[i];
+    
+    for(ll bit = 1;bit<lg;bit++)
+    {
+        for(ll i=0;i+(1LL<<bit)<=n;i++)
+        {
+            ll p = (1LL<<bit);
+            
+            if(table_mx[i][bit-1]>table_mx[i+p/2][bit-1])table_mx[i][bit] = table_mx[i][bit-1];
+            else table_mx[i][bit] = table_mx[i+p/2][bit-1];
+            
+            if(table_mn[i][bit-1]>table_mn[i+p/2][bit-1])table_mn[i][bit] = table_mn[i+p/2][bit-1];
+            else table_mn[i][bit] = table_mn[i][bit-1];
+        }
+    }
+}
+
+ll query(ll l,ll r)
+{
+    ll len = log2(r-l+1LL);
+    
+    ll p = (1LL<<len);
+    
+    ll mx = max(table_mx[l][len],table_mx[r-p+1LL][len]),mn = min(table_mn[l][len],table_mn[r-p+1LL][len]);
+    return mx  - mn;
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
